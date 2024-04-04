@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 ]
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -126,8 +127,12 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'posts' / 'static',
-    BASE_DIR / 'profiles' / 'static'
+    BASE_DIR / 'profiles' / 'static',
 ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
