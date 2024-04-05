@@ -97,9 +97,9 @@ def delete_post(request, pk):
         return JsonResponse({})
 
 def image_upload_view(request):
-    if request.method='POST'
-    img = request.FILES.get('file')
-    new_post_id = request.POST.get('new_post_id')
-    post = Post.object.get(id=new_post_id)
-    Photo.objects.create(image=img, post=post)
-return HttpResponse()
+    if request.method =='POST':
+        img = request.FILES.get('file')
+        new_post_id = request.POST.get('new_post_id')
+        post = Post.object.get(id=new_post_id)
+        Photo.objects.create(image=img, post=post)
+    return HttpResponse()
