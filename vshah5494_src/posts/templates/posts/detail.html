@@ -9,6 +9,18 @@
 {% block title %}{{obj.title}} detail{% endblock title%}
 
 {% block content %}
+
+    <!-- Username Display -->
+    <div class="user-info">
+        {% if user.is_authenticated %}
+            <h4>Welcome, {{ user.username }}!</h4>
+            <hr>
+        {% else %}
+            <h4>Welcome, Guest!</h4>
+            <hr>
+        {% endif %}
+    </div>
+    
     <!-- Update Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -46,8 +58,8 @@
                 <div class="modal-footer">
                     <form id="delete-form">
                         {% csrf_token %}
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
-                            <button type="submit" class="btn btn-success">delete</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-success">delete</button>
                     </form>
                 </div>
             </div>
@@ -85,4 +97,6 @@
         <div class="spinner-border" role="status"></div>
     </div>
     <div class="mt-1" id="post-box"></div>
+
+
 {% endblock content%}
