@@ -11,5 +11,15 @@ my profile
 {% endblock title %}
 
 {% block  content %}
-my profile content
+    <div id="alert-box"></div>
+    <h3>{{obj.user}}</h3>
+    <hr>
+    <div class="text-center" id="avatar-box">
+        <img src="{{obj.avatar.url}}" class="rounded" height="200px" width="auto" alt="{{obj.user.username}}">
+    </div>
+    <form id="profile-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3">save</button>
+    </form>
 {% endblock content %}
