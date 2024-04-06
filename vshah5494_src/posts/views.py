@@ -3,7 +3,10 @@ from .models import Post, Photo
 from django.http import JsonResponse, HttpResponse
 from .forms import PostForm
 from profiles.models import Profile
+from .utils import action_permission
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def post_list_and_create(request):
     form = PostForm(request.POST or None)
     context = {'form': form}
@@ -22,6 +25,7 @@ def post_list_and_create(request):
             })
     return render(request, 'posts/main.html', context)
 
+@login_required
 def post_detail(request, pk):
     obj = Post.objects.get(pk=pk)
     form = PostForm()
@@ -77,6 +81,8 @@ def like_unlike_post(request):
             obj.liked.add(request.user)
         return JsonResponse({'liked': liked, 'count': obj.like_count})
 
+@login_required
+@action_permission
 def update_post(request, pk):
     obj = Post.objects.get(pk=pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -90,12 +96,16 @@ def update_post(request, pk):
             'body': new_body,
         })
 
+@login_required
+@action_permission
 def delete_post(request, pk):
     obj = Post.objects.get(pk=pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         obj.delete()
-        return JsonResponse({})
+        return JsonResponse({'msg':'some message'})
+    return JsonResponse({'msg': 'access denied - Ajax only'})
 
+@login_required
 def image_upload_view(request):
     if request.method =='POST':
         img = request.FILES.get('file')
